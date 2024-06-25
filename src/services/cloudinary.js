@@ -33,10 +33,7 @@ class CloudinaryService extends FileService {
 						return;
 					}
 					console.log(image);
-					const optimisedUrl = cloudinary.url(image.original_filename, {
-						quality: "auto:best",
-						fetch_format: "auto",
-					});
+					const optimisedUrl = this.getOptimisedUrl(image.url);
 					resolve({ url: optimisedUrl });
 				},
 			);
@@ -80,6 +77,14 @@ class CloudinaryService extends FileService {
 
 	removeExtension(name) {
 		return name.split(".").slice(0, -1).join(".");
+	}
+
+	getOptimisedUrl(url) {
+		const urlObj = new URL(url);
+		const pathname = urlObj.pathname;
+		const newPathName = pathname.replace("/", "/f_auto,q_auto/");
+		urlObj.pathname = newPathName;
+		return urlObj.toString();
 	}
 }
 
