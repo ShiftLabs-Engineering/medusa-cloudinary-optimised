@@ -32,7 +32,8 @@ class CloudinaryService extends FileService {
 						reject(err);
 						return;
 					}
-					console.log(image);
+					console.log(image.url);
+					console.log(image.original_filename);
 					const optimisedUrl = this.getOptimisedUrl(image.url);
 					resolve({ url: optimisedUrl });
 				},
@@ -80,11 +81,19 @@ class CloudinaryService extends FileService {
 	}
 
 	getOptimisedUrl(url) {
-		const urlObj = new URL(url);
-		const pathname = urlObj.pathname;
-		const newPathName = pathname.replace("/", "/f_auto,q_auto/");
-		urlObj.pathname = newPathName;
-		return urlObj.toString();
+		// Replace 'http' with 'https'
+		let secureUrl = url.replace("http://", "https://");
+
+		// Find the position to insert the transformation parameters
+		const uploadIndex = secureUrl.indexOf("/upload/") + "/upload/".length;
+
+		// Insert the transformation parameters 'f_auto,q_auto'
+		secureUrl =
+			secureUrl.slice(0, uploadIndex) +
+			"f_auto,q_auto/" +
+			secureUrl.slice(uploadIndex);
+
+		return secureUrl;
 	}
 }
 
