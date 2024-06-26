@@ -88,9 +88,10 @@ class CloudinaryService extends FileService {
 		const uploadIndex = secureUrl.indexOf("/upload/") + "/upload/".length;
 
 		// Insert the transformation parameters 'f_auto,q_auto'
+		// //https://res.cloudinary.com/dkqiokfok/image/upload/c_thumb,h_800,w_800/l_HB-logo/e_mask,fl_layer_apply,g_north/hb2_1719339368657.jpg
 		secureUrl =
 			secureUrl.slice(0, uploadIndex) +
-			"f_auto,q_auto/" +
+			"l_HB-logo/e_mask,fl_layer_apply,g_north/f_auto,q_auto/" +
 			secureUrl.slice(uploadIndex);
 
 		return secureUrl;
