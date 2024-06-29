@@ -88,10 +88,12 @@ class CloudinaryService extends FileService {
 		const uploadIndex = secureUrl.indexOf("/upload/") + "/upload/".length;
 
 		// Insert the transformation parameters 'f_auto,q_auto'
-		// //https://res.cloudinary.com/dkqiokfok/image/upload/c_thumb,h_800,w_800/l_HB-logo/e_mask,fl_layer_apply,g_north/hb2_1719339368657.jpg
+		//https://res.cloudinary.com/dkqiokfok/image/upload/l_HB-logo,w_100,o_30,e_brightness:200/hb2_1719339368657.jpg
+
+		//https://res.cloudinary.com/demo/image/upload/w_0.2/l_HB-logo,w_200,o_30,e_brightness:200/f_auto,q_auto/mountain.jpg
 		secureUrl =
 			secureUrl.slice(0, uploadIndex) +
-			"l_HB-logo/e_mask,fl_layer_apply,g_north/f_auto,q_auto/" +
+			"l_HB-logo,w_200,o_30,e_brightness:200" +
 			secureUrl.slice(uploadIndex);
 
 		return secureUrl;
