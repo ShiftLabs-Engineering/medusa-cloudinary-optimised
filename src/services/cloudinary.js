@@ -34,7 +34,7 @@ class CloudinaryService extends FileService {
 					}
 					console.log(image.url);
 					console.log(image.original_filename);
-					const optimisedUrl = this.getOptimisedUrl(image.url);
+					const optimisedUrl = this.getOptimisedUrl(image.url, publicId);
 					resolve({ url: optimisedUrl });
 				},
 			);
@@ -80,7 +80,7 @@ class CloudinaryService extends FileService {
 		return name.split(".").slice(0, -1).join(".");
 	}
 
-	getOptimisedUrl(url) {
+	getOptimisedUrl(url, publicId) {
 		// Replace 'http' with 'https'
 		let secureUrl = url.replace("http://", "https://");
 
@@ -91,10 +91,9 @@ class CloudinaryService extends FileService {
 		//https://res.cloudinary.com/dkqiokfok/image/upload/l_HB-logo,w_100,o_30,e_brightness:200/hb2_1719339368657.jpg
 
 		//https://res.cloudinary.com/demo/image/upload/w_0.2/l_HB-logo,w_200,o_30,e_brightness:200/f_auto,q_auto/mountain.jpg
-		secureUrl =
-			secureUrl.slice(0, uploadIndex) +
-			"l_HB-logo,w_200,o_30,e_brightness:200" +
-			secureUrl.slice(uploadIndex);
+
+		secureUrl = secureUrl.slice(0, uploadIndex) + "f_auto,q_auto/" + publicId;
+		//	secureUrl.slice(uploadIndex);
 
 		return secureUrl;
 	}
